@@ -33,7 +33,7 @@ fn run(exe_path: &path::PathBuf, file_path: &path::PathBuf) -> Result<(), Box<dy
     Ok(())
 }
 
-
+// 根据命令行参数获取yjk文件路径
 fn file_path(mut args: env::Args) -> Result<path::PathBuf, &'static str> {
     args.next();
 
@@ -45,6 +45,7 @@ fn file_path(mut args: env::Args) -> Result<path::PathBuf, &'static str> {
     Ok(path::PathBuf::from(file_path))
 }
 
+// 根据yjk文件路径，判断yjk版本
 fn yjk_version(file_path: &mut path::PathBuf) -> YJKversion {
     file_path.set_extension("ygt");
     if file_path.exists() {
@@ -60,6 +61,7 @@ enum YJKversion {
     V3,
 }
 
+// 读取配置文件中的YJK程序路径
 struct ConfigToml {
     yjk2_path: path::PathBuf,
     yjk3_path: path::PathBuf,
@@ -93,13 +95,3 @@ impl ConfigToml {
         Ok(ConfigToml {yjk2_path, yjk3_path})
     }
 }
-
-// #[cfg(test)]
-// mod test {
-//     use super::*;
-
-//     #[test]
-//     fn test() {
-//         new().expect("err");
-//     }
-// }
